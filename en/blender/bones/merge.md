@@ -2,7 +2,7 @@
 title: Merging bones on Blender
 description: Quick notes about how to merge bones in Blender, since the process is far from obvious
 published: true
-date: 2022-02-04T10:21:21.478Z
+date: 2022-02-04T10:38:46.771Z
 tags: blender, armature, bones
 editor: markdown
 dateCreated: 2022-02-04T10:21:21.477Z
@@ -14,19 +14,23 @@ The operation is needlessly hard on Blender, and the few methods that were avail
 
 ## Dissolve and Vertex Weight Mix
 
-One way is to **Dissolve** the bones and then use the **Vertex Weight Mix** modifier.
+One way is to **Dissolve** the child-bones and then use the **Vertex Weight Mix** modifier to move the previous bones weights to the parent.
+
 You can do these operations in any order (Dissolve then Vertex Weight, or Vertex Weight then Dissolve).
 
 Anyway, the procedure is :
 
+### Merge the child bones with Dissolve
+
 * Select the **armature**
 * Get into `Edit` mode
-* Select all the child bones you want to merge with their parent.
-* In the *Bone* panel, check _Connected_ by `Alt` + `Left Click`-ing it.
+* Select all the child bones you want to merge with their parent
+* In the *Bone* panel, check _Connected_ by `Alt` + `Left Click`-ing it
 
 > Technically, you can do this from the outliner, without getting into `Edit` mode
 {.is-info}
 
+### Move the child weights to the parent with Vertex Weight Mix
 
 Then, for each parent :
 
@@ -44,10 +48,12 @@ Then, for each parent :
   * In **Vertex Set**, select **Vertex Group A**
   * In **Mix Mode**, select **Add**
 
-Then if you need to copy other children weights
+Then if you need to copy other children weights :
 
 * Duplicate the modifier and change **Vertex Group B** in the duplicates
 
 Finally :
 
 * Apply the **Vertex Weight Mix** modifiers
+
+Once done, you can remove the removed bones Vertex Groups.
