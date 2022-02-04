@@ -1,0 +1,3 @@
+# Notes taken on WikiJS
+
+Let's see if it the whole synchronisation system works...
