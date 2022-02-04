@@ -2,7 +2,7 @@
 title: Merging bones on Blender
 description: Quick notes about how to merge bones in Blender, since the process is far from obvious
 published: true
-date: 2022-02-04T10:47:35.807Z
+date: 2022-02-04T20:09:39.088Z
 tags: blender, armature, bones
 editor: markdown
 dateCreated: 2022-02-04T10:21:21.477Z
@@ -47,7 +47,7 @@ Then, for each parent :
 * Add a **Vertex Weight Mix** modifier
   * In **Vertex Group A**, select the parent bone Vertex Group
   * In **Vertex Group B**, select one of the removed child bone Vertex Group
-  * In **Vertex Set**, select **Vertex Group A**
+  * In **Vertex Set**, select **Vertex Group B**
   * In **Mix Mode**, select **Add**
 
 Then if you need to copy other children weights :
