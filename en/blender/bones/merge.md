@@ -2,13 +2,13 @@
 title: Merging bones on Blender
 description: Quick notes about how to merge bones in Blender, since the process is far from obvious
 published: true
-date: 2022-02-04T20:09:39.088Z
+date: 2022-02-04T20:25:22.641Z
 tags: blender, armature, bones
 editor: markdown
 dateCreated: 2022-02-04T10:21:21.477Z
 ---
 
-# Merging bones on Blender 3.x
+# Merging bones in Blender 3.x
 
 The operation is needlessly hard on Blender, and the few methods that were available on previous versions, seem to be unuseable on recent versions.
 
