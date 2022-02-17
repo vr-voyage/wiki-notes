@@ -2,7 +2,7 @@
 title: Basics of the OSC protocol in VRChat
 description: The basics of the OSC protocol, and how to use this protocol on VRChat.
 published: true
-date: 2022-02-17T22:05:55.686Z
+date: 2022-02-17T22:06:42.458Z
 tags: vrchat, osc
 editor: markdown
 dateCreated: 2022-02-17T22:05:55.686Z
@@ -53,9 +53,9 @@ require 'socket'
 s = UDPSocket.new
 
 s.send(
-	mesg="/input/Vertical\0,f\0\0\x3F\x80\x00\x00",
+  mesg="/input/Vertical\0,f\0\0\x3F\x80\x00\x00",
   flags=0,
-  host=127.0.0.1,
+  host=127.0.0.1, 
   port=9000)
 ```
 
