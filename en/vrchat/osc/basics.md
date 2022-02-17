@@ -2,7 +2,7 @@
 title: Basics of the OSC protocol in VRChat
 description: The basics of the OSC protocol, and how to use this protocol on VRChat.
 published: true
-date: 2022-02-17T22:06:42.458Z
+date: 2022-02-17T22:28:50.924Z
 tags: vrchat, osc
 editor: markdown
 dateCreated: 2022-02-17T22:05:55.686Z
@@ -31,7 +31,7 @@ https://docs.vrchat.com/v2022.1.1/docs/osc-as-input-controller
 
 #### Usage
 
-On VRChat, the OSC packets are sent/received through UDP.
+On VRChat, the OSC packets are sent/received through UDP.  
 By default, VRChat receive data on port 9000 and send them on port 9001.
 You can [change these defaults settings through the command line](https://docs.vrchat.com/v2022.1.1/docs/osc-overview) :
 
