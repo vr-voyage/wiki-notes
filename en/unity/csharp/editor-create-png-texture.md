@@ -2,7 +2,7 @@
 title: Create a texture save it as a PNG file
 description: Describes how to create a texture, inside an editor script, and save it to PNG format. This also applies for various other formats too.
 published: true
-date: 2022-03-06T03:05:30.511Z
+date: 2022-03-06T03:14:32.277Z
 tags: unity, editor, csharp
 editor: markdown
 dateCreated: 2022-03-06T03:05:30.511Z
@@ -36,12 +36,13 @@ Texture2D(int width, int height, TextureFormat textureFormat, bool mipChain, boo
 Texture2D(int width, int height, GraphicsFormat format, int mipCount, TextureCreationFlags flags)
 ```
 
-With the TextureCreationFlags, you can enable CrunchCompression.
+> With the TextureCreationFlags, you can enable CrunchCompression.
+> {.is-info}
 
 ## Set the pixels Colors
 
 To set the pixels colors, the simple way is to create an array of `width` * `height` Color or Color32 objects, and then either use `texture.SetPixels` or `SetPixels32`.  
-When using a more complex texture format, where you understand the pixel format, you can use `SetPixelsData<T>`. This method won't be shown here.
+When using a more complex texture format, where you understand the pixel format, you can use `SetPixelsData<T>`. This method won't be shown here, however.
 
 ```csharp
 Color32 colors = new Color32[texture.width * texture.height];
@@ -63,22 +64,28 @@ All export functions are used like this :
 texture.EncodeToPNG();
 ```
 
-The JPEG format can take an optional `quality` argument, indicating the level of lossy compression desired. Not passing this argument is equivalent to passing `75`.  
-I.E. `texture.EncodeToJPG()` == `texture.EncodeToJPG(75)`
+> The JPEG format can take an optional `quality` argument, indicating the level of lossy compression desired. Not passing this argument is equivalent to passing `75`.  
+> So  `texture.EncodeToJPG()` is the same as `texture.EncodeToJPG(75)`
+{.is-info}
 
-The convert function will return a `byte[]` array that must then written on the disk.  
-Using `Application.dataPath` it is possible to get the absolute path to the **Assets** folder used in the project.  
-Even on Windows, this path is written using forward-slashes (forward-slashes are supported on Windows since Windows XP).
 
-So, converting an **Assets** relative filepath to an absolute filepath is done by like this :
+The Encode functions will return a `byte[]` array that can then written on the disk to generate the appropriate file.  
+We cannot use the `AssetDatabase` to generate such files, since it only works for Unity objects.  
+Instead, we can use functions like `File.WriteAllBytes` but this require to know the actual absolute path of the file we want to create.
+
+When using an editor script, `Application.dataPath` provides the absolute path to the **Assets** folder used in the project.
+
+> Even on Windows, this path is written using forward-slashes.  
+> Forward-slashes paths are supported on Windows since Windows XP.
+{.is-info}
+
+By combining the **Assets** absolute directory path, with an asset relative file path, we get the asset absolute file path :
 
 ```csharp
 string saveFilePath = $"{Application.dataPath}/{assetsRelativeFilePath}"
 ```
 
 Once the filepath determined, saving the exported content can be done with `File.WriteAllBytes(string filepath, byte[] content)`
-
-So, in one-line, this would give :
 
 ```csharp
 string relativeFilePath = "GeneratedTexture.png";
