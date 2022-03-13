@@ -2,7 +2,7 @@
 title: Create a texture save it as a PNG file
 description: Describes how to create a texture, inside an editor script, and save it to PNG format. This also applies for various other formats too.
 published: true
-date: 2022-03-13T03:53:35.008Z
+date: 2022-03-13T03:55:26.575Z
 tags: unity, editor, csharp
 editor: markdown
 dateCreated: 2022-03-06T03:05:30.511Z
@@ -42,7 +42,7 @@ Texture2D(int width, int height, GraphicsFormat format, int mipCount, TextureCre
 ## Set the pixels Colors
 
 To set the pixels colors, the simple way is to create an array of `width` * `height` Color or Color32 objects, and then either use [**texture.SetPixels**](https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels.html) or [**SetPixels32**](https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels32.html).  
-When using a more complex texture format, where you understand the pixel format, you can use [**SetPixelsData<T>**](https://docs.unity3d.com/ScriptReference/Texture2D.SetPixelData.html).  
+When using a more complex texture format, where you understand the pixel format, you can use [**SetPixelsData**](https://docs.unity3d.com/ScriptReference/Texture2D.SetPixelData.html).  
 This method won't be shown here, however.
 
 ```csharp
@@ -53,11 +53,11 @@ texture.SetPixels32(colors);
 
 ## Convert the texture to PNG and save it to disk
 
-To convert the texture to a Unity known format, use one of the following function :
-  * `EncodeToEXR` to export to EXR format
-  * `EncodeToJPG` to export to JPEG format
-  * `EncodeToPNG` to export to PNG format
-  * `EncodeToTGA` to export to TGA format
+To convert the texture to a Unity known format, use one of the following extension function :
+  * [**EncodeToEXR**](https://docs.unity3d.com/ScriptReference/ImageConversion.EncodeToEXR.html) to export to EXR format
+  * [**EncodeToJPG**](https://docs.unity3d.com/ScriptReference/ImageConversion.EncodeToJPG.html) to export to JPEG format
+  * [**EncodeToPNG**](https://docs.unity3d.com/ScriptReference/ImageConversion.EncodeToPNG.html) to export to PNG format
+  * [**EncodeToTGA**](https://docs.unity3d.com/ScriptReference/ImageConversion.EncodeToTGA.html) to export to TGA format
   
 All export functions are used like this :
 
