@@ -2,7 +2,7 @@
 title: Create a texture save it as a PNG file
 description: Describes how to create a texture, inside an editor script, and save it to PNG format. This also applies for various other formats too.
 published: true
-date: 2022-03-13T04:04:53.987Z
+date: 2022-03-13T04:09:50.703Z
 tags: unity, editor, csharp
 editor: markdown
 dateCreated: 2022-03-06T03:05:30.511Z
@@ -182,9 +182,13 @@ namespace Myy
 
 
                 Texture2D texture = new Texture2D(256, 256);
+                /* The filter mode is only setup to showcase
+                 * import settings modification afterwards. */
+                texture.filterMode = FilterMode.Point;
                 int textureSize = texture.width * texture.height;
                 Color[] colors = new Color[textureSize];
 
+                /* This variable is just used to generate a rainbow pattern */
                 float max = textureSize;
 
                 for (int i = 0; i < textureSize; i++)
@@ -194,13 +198,17 @@ namespace Myy
 
                 texture.SetPixels(colors);
 
-
                 File.WriteAllBytes(
-                    $"{Application.dataPath}/{relativeFilePath}.png",
+                    $"{Application.dataPath}/{relativeFilePath}",
                     texture.EncodeToPNG());
 
                 AssetDatabase.Refresh();
 
+                TextureImporter textureImportSettings =
+                    AssetImporter.GetAtPath($"Assets/{relativeFilePath}") as TextureImporter;
+                textureImportSettings.filterMode = texture.filterMode;
+                textureImportSettings.mipmapEnabled = texture.mipmapCount > 1;
+                textureImportSettings.SaveAndReimport();
             }
         }
     }
