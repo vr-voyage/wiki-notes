@@ -2,7 +2,7 @@
 title: Create a texture save it as a PNG file
 description: Describes how to create a texture, inside an editor script, and save it to PNG format. This also applies for various other formats too.
 published: true
-date: 2022-03-06T03:14:32.277Z
+date: 2022-03-13T03:44:22.059Z
 tags: unity, editor, csharp
 editor: markdown
 dateCreated: 2022-03-06T03:05:30.511Z
@@ -92,10 +92,35 @@ string relativeFilePath = "GeneratedTexture.png";
 File.WriteAllbytes($"{Application.dataPath}/{relativeFilePath}", texture.EncodeToPNG());
 ```
 
-## Extra
+# Extra
+
+## Refresh the Database
 
 When using `File.WriteAllBytes()`, Unity won't refresh the Assets Database, and the file won't be seen in the `Project` tab until the database is actually refreshed.  
-Calling `AssetDatabase.Refresh()` from the script will ensure that the database is actually refreshed after creating the file.
+Calling `AssetDatabase.Refresh()` will refresh the database.
+
+## Setup the import settings
+
+Since the PNG file is not generated using Unity functions, Unity can't link the generated texture to the generated PNG file.  
+Hence the file will inherit default import settings once imported into Unity database (`AssetDatabase.Refresh()`).
+
+The import settings of any asset can be accessed through a script editor, by using [**AssetImporter.GetAtPath**](https://docs.unity3d.com/ScriptReference/AssetImporter.GetAtPath.html).
+
+This function allows to retrieve the import settings of a specific asset.  
+The function returns an **AssetImporter** object, which is a class inherited by various importers objects.  
+In order to access the Texture import settings, the object needs to be casted into a specicialized [**TextureImporter**](https://docs.unity3d.com/ScriptReference/TextureImporter.html) object, using the following code :
+
+```csharp
+TextureImporter textureImportSettings =
+    AssetImporter.GetAtPath($"Assets/{relativeFilePath}") as TextureImporter;
+```
+
+Various texture importer fields have the same name as **Texture2D** object, which make replicating settings easier. Though, for the most parts, this just boils down to setting up the sampler default filter mode, and the amount of mipmaps.
+
+```csharp
+textureImportSettings.filterMode = texture.filterMode;
+textureImportSettings.mipmapEnabled = texture.mipmapCount > 1;
+```
 
 # Full simple example
 
