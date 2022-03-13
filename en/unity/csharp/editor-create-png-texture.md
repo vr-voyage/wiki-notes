@@ -2,7 +2,7 @@
 title: Create a texture save it as a PNG file
 description: Describes how to create a texture, inside an editor script, and save it to PNG format. This also applies for various other formats too.
 published: true
-date: 2022-03-13T03:55:26.575Z
+date: 2022-03-13T04:04:53.987Z
 tags: unity, editor, csharp
 editor: markdown
 dateCreated: 2022-03-06T03:05:30.511Z
@@ -70,11 +70,11 @@ texture.EncodeToPNG();
 {.is-info}
 
 
-The Encode functions will return a `byte[]` array that can then written on the disk to generate the appropriate file.  
-We cannot use the `AssetDatabase` to generate such files, since it only works for Unity objects.  
-Instead, we can use functions like `File.WriteAllBytes` but this require to know the actual absolute path of the file we want to create.
+The Encode functions will return a byte array that can then written on the disk to generate the appropriate file.  
+We cannot use the [**AssetDatabase**](https://docs.unity3d.com/ScriptReference/AssetDatabase.html) to generate such files, since it only works for Unity objects, and here we got a simple C# `byte[]` System object.  
+So, instead, we have to rely on System I/O functions like [**File.WriteAllBytes**](https://docs.microsoft.com/en-us/dotnet/api/system.io.file.writeallbytes?view=net-6.0) but this require to know the actual absolute path of the file we want to create.
 
-When using an editor script, `Application.dataPath` provides the absolute path to the **Assets** folder used in the project.
+When using an editor script, [**Application.dataPath**](https://docs.unity3d.com/ScriptReference/Application-dataPath.html) provides the absolute path to the **Assets** folder used in the project.
 
 > Even on Windows, this path is written using forward-slashes.  
 > Forward-slashes paths are supported on Windows since Windows XP.
@@ -86,7 +86,7 @@ By combining the **Assets** absolute directory path, with an asset relative file
 string saveFilePath = $"{Application.dataPath}/{assetsRelativeFilePath}"
 ```
 
-Once the filepath determined, saving the exported content can be done with `File.WriteAllBytes(string filepath, byte[] content)`
+Once the filepath determined, saving the exported content can be done with `File.WriteAllBytes(string filepath, byte[] content)`.
 
 ```csharp
 string relativeFilePath = "GeneratedTexture.png";
@@ -98,7 +98,7 @@ File.WriteAllbytes($"{Application.dataPath}/{relativeFilePath}", texture.EncodeT
 ## Refresh the Database
 
 When using `File.WriteAllBytes()`, Unity won't refresh the Assets Database, and the file won't be seen in the `Project` tab until the database is actually refreshed.  
-This can be done by calling `AssetDatabase.Refresh()`.
+This can be done by calling [**AssetDatabase.Refresh**](https://docs.unity3d.com/ScriptReference/AssetDatabase.Refresh.html).
 
 ## Setup the import settings
 
@@ -108,7 +108,7 @@ Hence the file will inherit default import settings once imported into Unity dat
 The import settings of any asset can be accessed through a script editor, by using [**AssetImporter.GetAtPath**](https://docs.unity3d.com/ScriptReference/AssetImporter.GetAtPath.html).
 
 This function allows to retrieve the import settings of a specific asset.  
-The function returns an **AssetImporter** object, which is a class inherited by various importers objects.  
+The function returns an [**AssetImporter**](https://docs.unity3d.com/ScriptReference/AssetImporter.html) object, which is a class inherited by various importers objects.  
 In order to access the Texture import settings, the object needs to be casted into a specicialized [**TextureImporter**](https://docs.unity3d.com/ScriptReference/TextureImporter.html) object, using the following code :
 
 ```csharp
@@ -118,11 +118,12 @@ TextureImporter textureImportSettings =
 
 Various fields of the texture importer share the same name as **Texture2D** objects fields, which make it easier to replicate settings.  
 Though, for the most parts, this just boils down to setting up the sampler default filter mode, and the amount of mipmaps.  
-Once the import settings modified, call [**importer.SaveAndReimport()**](https://docs.unity3d.com/ScriptReference/AssetImporter.SaveAndReimport.html) to save them.
+Once the import settings modified, call [**importer.SaveAndReimport**](https://docs.unity3d.com/ScriptReference/AssetImporter.SaveAndReimport.html) to save them.
 
 ```csharp
 textureImportSettings.filterMode    = texture.filterMode;
 textureImportSettings.mipmapEnabled = texture.mipmapCount > 1;
+textureImportSettings.SaveAndReimport();
 ```
 
 # Full simple example
