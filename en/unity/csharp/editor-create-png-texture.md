@@ -2,7 +2,7 @@
 title: Create a texture save it as a PNG file
 description: Describes how to create a texture, inside an editor script, and save it to PNG format. This also applies for various other formats too.
 published: true
-date: 2022-03-13T03:44:22.059Z
+date: 2022-03-13T03:44:46.506Z
 tags: unity, editor, csharp
 editor: markdown
 dateCreated: 2022-03-06T03:05:30.511Z
@@ -97,7 +97,7 @@ File.WriteAllbytes($"{Application.dataPath}/{relativeFilePath}", texture.EncodeT
 ## Refresh the Database
 
 When using `File.WriteAllBytes()`, Unity won't refresh the Assets Database, and the file won't be seen in the `Project` tab until the database is actually refreshed.  
-Calling `AssetDatabase.Refresh()` will refresh the database.
+This can be done by calling `AssetDatabase.Refresh()`.
 
 ## Setup the import settings
 
