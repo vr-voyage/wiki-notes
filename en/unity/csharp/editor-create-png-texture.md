@@ -2,7 +2,7 @@
 title: Create a texture save it as a PNG file
 description: Describes how to create a texture, inside an editor script, and save it to PNG format. This also applies for various other formats too.
 published: true
-date: 2022-03-13T04:09:50.703Z
+date: 2022-03-13T04:29:25.613Z
 tags: unity, editor, csharp
 editor: markdown
 dateCreated: 2022-03-06T03:05:30.511Z
@@ -125,6 +125,27 @@ textureImportSettings.filterMode    = texture.filterMode;
 textureImportSettings.mipmapEnabled = texture.mipmapCount > 1;
 textureImportSettings.SaveAndReimport();
 ```
+
+## Reload the texture from disk
+
+You can reload the PNG texture from the disk using :
+
+```csharp
+Texture2D reloadedTexture = AssetDatabase.LoadAssetAtPath<Texture2D>($"Assets/{relativeFilePath}");
+```
+
+Note that, the first **Texture2D** was saved to the disk without using Unity functions.  
+Hence, Unity cannot link the first **Texture2D** to the PNG file generated out of it.  
+This has multiple implications.  
+If you generate a [**Material**](https://docs.unity3d.com/ScriptReference/Material.html) and setup a texture field by passing the first **Texture2D** to [**Material.SetTexture**](https://docs.unity3d.com/ScriptReference/Material.SetTexture.html), the material will lose its reference when saved to disk using [**AssetDatabase.CreateAsset**](https://docs.unity3d.com/ScriptReference/AssetDatabase.CreateAsset.html).
+
+However, passing the PNG file path to [**AssetDatabase.LoadAssetAtPath**](https://docs.unity3d.com/ScriptReference/AssetDatabase.LoadAssetAtPath.html) will return a new **Texture2D** object, that will be linked to this file.
+
+Meaning that, this time, if you generate a new **Material**, setup one its texture property with the reloaded texture, using **Material.SetTexture** and save the material with **AssetDatabase.CreateAsset**; the saved material will keep the reference to the actual PNG file.
+
+> This new Texture2D object will follow the file Import settings.
+{.is-info}
+
 
 # Full simple example
 
