@@ -2,7 +2,7 @@
 title: Create a texture save it as a PNG file
 description: Describes how to create a texture, inside an editor script, and save it to PNG format. This also applies for various other formats too.
 published: true
-date: 2022-03-13T03:46:21.944Z
+date: 2022-03-13T03:53:35.008Z
 tags: unity, editor, csharp
 editor: markdown
 dateCreated: 2022-03-06T03:05:30.511Z
@@ -18,7 +18,7 @@ The operation is pretty simple and consist in :
 
 ## Creating a Texture2D object
 
-Create a Texture2D just require to use the following constructor :
+Creating a [**Texture2D**](https://docs.unity3d.com/ScriptReference/Texture2D.html) just require to use the following [constructor](https://docs.unity3d.com/ScriptReference/Texture2D-ctor.html) :
 
 ```csharp
 new Texture2D(width, height);
@@ -41,8 +41,9 @@ Texture2D(int width, int height, GraphicsFormat format, int mipCount, TextureCre
 
 ## Set the pixels Colors
 
-To set the pixels colors, the simple way is to create an array of `width` * `height` Color or Color32 objects, and then either use `texture.SetPixels` or `SetPixels32`.  
-When using a more complex texture format, where you understand the pixel format, you can use `SetPixelsData<T>`. This method won't be shown here, however.
+To set the pixels colors, the simple way is to create an array of `width` * `height` Color or Color32 objects, and then either use [**texture.SetPixels**](https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels.html) or [**SetPixels32**](https://docs.unity3d.com/ScriptReference/Texture2D.SetPixels32.html).  
+When using a more complex texture format, where you understand the pixel format, you can use [**SetPixelsData<T>**](https://docs.unity3d.com/ScriptReference/Texture2D.SetPixelData.html).  
+This method won't be shown here, however.
 
 ```csharp
 Color32 colors = new Color32[texture.width * texture.height];
@@ -116,7 +117,8 @@ TextureImporter textureImportSettings =
 ```
 
 Various fields of the texture importer share the same name as **Texture2D** objects fields, which make it easier to replicate settings.  
-Though, for the most parts, this just boils down to setting up the sampler default filter mode, and the amount of mipmaps.
+Though, for the most parts, this just boils down to setting up the sampler default filter mode, and the amount of mipmaps.  
+Once the import settings modified, call [**importer.SaveAndReimport()**](https://docs.unity3d.com/ScriptReference/AssetImporter.SaveAndReimport.html) to save them.
 
 ```csharp
 textureImportSettings.filterMode    = texture.filterMode;
